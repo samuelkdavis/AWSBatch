@@ -38,3 +38,7 @@ resource "aws_batch_job_definition" "batch-job-definition" {
 }
 CONTAINER_PROPERTIES
 }
+
+output "batch_job_definition_name" {
+  value = "${var.NAMESPACE}-batch-job-definition" #todo turn into variable
+}

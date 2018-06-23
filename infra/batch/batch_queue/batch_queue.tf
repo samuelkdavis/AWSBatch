@@ -7,3 +7,7 @@ resource "aws_batch_job_queue" "batch_queue" {
   priority             = 1
   compute_environments = ["${var.batch_compute_environment_arn}"]
 }
+
+output "job_queue_name" {
+  value = "${var.NAMESPACE}-batch-queue" #todo pull this into a variable
+}

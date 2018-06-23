@@ -27,3 +27,11 @@ module "batch_job_definition" {
   source    = "./batch/batch_job_definition"
   NAMESPACE = "${var.NAMESPACE}"
 }
+
+# untested below:
+# module "lambda_trigger" {
+#   source         = "./lambda"
+#   job_queue_name = "${module.batch_queue.job_queue_name}"
+#   job_definition = "${module.batch_job_definition.batch_job_definition_name}"
+# }
+

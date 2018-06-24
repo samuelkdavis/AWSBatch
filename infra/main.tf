@@ -40,3 +40,8 @@ module "s3_bucket" {
   NAMESPACE  = "${var.NAMESPACE}"
   lambda_arn = "${module.lambda_trigger.lambda_arn}"
 }
+
+module "ecr_repository" {
+  source    = "./ecr_repository"
+  NAMESPACE = "${var.NAMESPACE}"
+}

@@ -10,6 +10,15 @@ var jobDefinition = 'ai-batch-job-definition';
 var jobName = 'Job' + getRandomInt(10000, 99999);
 var jobQueue = 'ai-batch-queue';
 
+var myJSONObject = {
+    a: 'b',
+    c: 'd',
+    e: {
+        f: 'h',
+        a: 'b'
+    }
+};
+
 var params = {
     jobDefinition: jobDefinition, 
     jobName: jobName, 
@@ -17,13 +26,17 @@ var params = {
     containerOverrides: {
         'environment': [
             {
-                'name': 'ENVVAR1',
+                'name': 's3FileKey',
                 'value': 'VALUE_1'
             },            
             {
-                'name': 'ENVVAR2',
+                'name': 's3BucketName',
                 'value': 'VALUE_2'
             },
+            {
+                'name': 'jsonObject',
+                'value': JSON.stringify(myJSONObject)
+            }
         ]
     }
    };

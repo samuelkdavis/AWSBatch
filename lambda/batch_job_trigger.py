@@ -36,9 +36,17 @@ def lambda_handler(event,context):
         jobName=job1Name,
         jobQueue=jobqueue,
         jobDefinition=jobdef,
-        parameters={
-            's3BucketName': bucket_name,
-            's3FileKey': file_key
-        }
+        containerOverrides={
+        'environment': [
+            {
+                'name': 's3BucketName',
+                'value': bucket_name
+            },            
+            {
+                'name': 's3FileKey',
+                'value': file_key
+            },
+        ]
+    },
     )
     print("Started Job: {}".format(job1['jobName']))

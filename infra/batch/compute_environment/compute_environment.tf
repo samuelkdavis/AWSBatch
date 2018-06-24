@@ -14,7 +14,7 @@ variable "min_vcpus" {
 }
 
 variable "desired_vcpus" {
-  default = 1
+  default = 2
 }
 
 resource "aws_batch_compute_environment" "batch-compute" {

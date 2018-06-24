@@ -3,3 +3,4 @@ infra/terraform.tfstate.backup
 infra/.terraform/
 **/*.zip
 **/node_modules/*
+infra/.terraform.tfstate.lock.info

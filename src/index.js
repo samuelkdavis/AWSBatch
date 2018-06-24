@@ -1,0 +1,1 @@
+console.log('batch job running ' + new Date())

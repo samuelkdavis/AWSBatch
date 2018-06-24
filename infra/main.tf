@@ -28,10 +28,15 @@ module "batch_job_definition" {
   NAMESPACE = "${var.NAMESPACE}"
 }
 
-# untested below:
-# module "lambda_trigger" {
-#   source         = "./lambda"
-#   job_queue_name = "${module.batch_queue.job_queue_name}"
-#   job_definition = "${module.batch_job_definition.batch_job_definition_name}"
-# }
+module "lambda_trigger" {
+  source         = "./lambda"
+  NAMESPACE      = "${var.NAMESPACE}"
+  job_queue_name = "${module.batch_queue.job_queue_name}"
+  job_definition = "${module.batch_job_definition.batch_job_definition_name}"
+}
 
+module "s3_bucket" {
+  source     = "./s3_bucket"
+  NAMESPACE  = "${var.NAMESPACE}"
+  lambda_arn = "${module.lambda_trigger.lambda_arn}"
+}

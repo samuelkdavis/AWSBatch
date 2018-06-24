@@ -1,20 +1,24 @@
+variable "NAMESPACE" {}
 variable "job_queue_name" {}
 variable "job_definition" {}
 
-resource "aws_lambda_function" "test_lambda" {
-  filename         = "lambda_function_payload.zip"
-  function_name    = "lambda_function_name"
+resource "aws_lambda_function" "batch_job_trigger" {
+  filename         = "batch_job_trigger.zip"
+  function_name    = "batch_job_trigger_lambda_handler"
   description      = "Triggers AWS Batch when invoked"
   role             = "${aws_iam_role.lambda_trigger_iam_role.arn}"
-  handler          = "exports.test"
-  source_code_hash = "${base64sha256(file("lambda_function_payload.zip"))}"
-  runtime          = "python3.6"                                            #"nodejs4.3"
-  Timeout          = "60"
+  handler          = "batch_job_trigger.lambda_handler"
+  source_code_hash = "${base64sha256(file("batch_job_trigger.zip"))}"
+  runtime          = "python3.6"                                      #"nodejs4.3"
 
   environment {
     variables = {
-      jobQueue      = "${var.job_queue_name}"
-      jobDefinition = "${var.job_definition}"
+      JobQueue      = "${var.job_queue_name}"
+      JobDefinition = "${var.job_definition}"
     }
   }
+}
+
+output "lambda_arn" {
+  value = "${aws_lambda_function.batch_job_trigger.arn}"
 }

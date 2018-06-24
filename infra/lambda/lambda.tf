@@ -14,8 +14,8 @@ resource "aws_lambda_function" "batch_job_trigger" {
   description      = "Triggers AWS Batch when invoked"
   role             = "${aws_iam_role.lambda_trigger_iam_role.arn}"
   handler          = "batch_job_trigger.lambda_handler"
-  source_code_hash = "${base64sha256(file("batch_job_trigger.zip"))}"
-  runtime          = "python3.6"                                      #"nodejs4.3"
+  source_code_hash = "${data.archive_file.lambda_zip.output_base64sha256}"
+  runtime          = "python3.6"                                           #"nodejs4.3"
 
   environment {
     variables = {

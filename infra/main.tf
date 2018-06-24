@@ -24,8 +24,9 @@ module "batch_queue" {
 }
 
 module "batch_job_definition" {
-  source    = "./batch/batch_job_definition"
-  NAMESPACE = "${var.NAMESPACE}"
+  source         = "./batch/batch_job_definition"
+  NAMESPACE      = "${var.NAMESPACE}"
+  repository_url = "${module.ecr_repository.repository_url}"
 }
 
 module "lambda_trigger" {

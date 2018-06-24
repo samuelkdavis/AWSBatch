@@ -9,6 +9,14 @@ variable "max_vcpus" {
   default = 16
 }
 
+variable "min_vcpus" {
+  default = 1
+}
+
+variable "desired_vcpus" {
+  default = 1
+}
+
 resource "aws_batch_compute_environment" "batch-compute" {
   compute_environment_name = "${var.NAMESPACE}-batch-compute"
 
@@ -19,8 +27,9 @@ resource "aws_batch_compute_environment" "batch-compute" {
       "${var.instance_type}",
     ]
 
-    max_vcpus = "${var.max_vcpus}"
-    min_vcpus = 0
+    max_vcpus     = "${var.max_vcpus}"
+    min_vcpus     = "${var.min_vcpus}"
+    desired_vcpus = "${var.desired_vcpus}"
 
     security_group_ids = [
       "${aws_security_group.batch-compute-security-group.id}",

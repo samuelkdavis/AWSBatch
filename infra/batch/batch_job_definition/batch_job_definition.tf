@@ -1,40 +1,31 @@
 variable "NAMESPACE" {}
 
+variable "repository_url" {}
+
+variable "vcpus" {
+  default = 1
+}
+
+variable "memory" {
+  default = 1024
+}
+
 resource "aws_batch_job_definition" "batch-job-definition" {
   name = "${var.NAMESPACE}-batch-job-definition"
   type = "container"
 
   container_properties = <<CONTAINER_PROPERTIES
 {
-    "command": ["ls", "-la"],
-    "image": "busybox",
-    "memory": 1024,
-    "vcpus": 1,
-    "volumes": [
-      {
-        "host": {
-          "sourcePath": "/tmp"
-        },
-        "name": "tmp"
-      }
-    ],
+    "command": [],
+    "image": "${var.repository_url}",
+    "memory": ${var.memory},
+    "vcpus": ${var.vcpus},
+    "volumes": [],
     "environment": [
         {"name": "VARNAME", "value": "VARVAL"}
     ],
-    "mountPoints": [
-        {
-          "sourceVolume": "tmp",
-          "containerPath": "/tmp",
-          "readOnly": false
-        }
-    ],
-    "ulimits": [
-      {
-        "hardLimit": 1024,
-        "name": "nofile",
-        "softLimit": 1024
-      }
-    ]
+    "mountPoints": [],
+    "ulimits": []
 }
 CONTAINER_PROPERTIES
 }

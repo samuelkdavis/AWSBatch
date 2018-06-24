@@ -5,6 +5,9 @@ const aws = require('aws-sdk');
 var s3FileKey = process.env.s3FileKey;
 var s3BucketName = process.env.s3BucketName;
 
+console.log('s3 file key ' + s3FileKey);
+console.log('s3 bucket name ' + s3BucketName);
+
 const s3 = new aws.S3();
 
 var getParams = {

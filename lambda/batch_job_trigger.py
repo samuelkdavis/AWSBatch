@@ -46,6 +46,10 @@ def lambda_handler(event,context):
                     'name': 's3FileKey',
                     'value': file_key
                 },
+                {
+                    'name': 'jsonObject',
+                    'value': '{"a":"b","c":"d","e":{"f":"h","a":"b"}}'
+                }
             ]
         },
     )

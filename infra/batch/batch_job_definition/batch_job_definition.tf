@@ -10,8 +10,12 @@ variable "memory" {
   default = 1024
 }
 
+locals {
+  batch_job_definition_name = "${var.NAMESPACE}-batch-job-definition"
+}
+
 resource "aws_batch_job_definition" "batch-job-definition" {
-  name = "${var.NAMESPACE}-batch-job-definition"
+  name = "${local.batch_job_definition_name}"
   type = "container"
 
   container_properties = <<CONTAINER_PROPERTIES
@@ -31,5 +35,5 @@ CONTAINER_PROPERTIES
 }
 
 output "batch_job_definition_name" {
-  value = "${var.NAMESPACE}-batch-job-definition" #todo turn into variable
+  value = "${local.batch_job_definition_name}"
 }

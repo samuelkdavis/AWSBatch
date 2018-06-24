@@ -1,5 +1,5 @@
-variable "aws_subnet_id" {
-  default = "subnet-e174b7b8"
+variable "aws_subnet_ids" {
+  default = ["subnet-e174b7b8"]
 }
 
 variable "NAMESPACE" {
@@ -13,8 +13,8 @@ provider "aws" {
 module "compute_environment" {
   source = "./batch/compute_environment"
 
-  aws_subnet_id = "${var.aws_subnet_id}"
-  NAMESPACE     = "${var.NAMESPACE}"
+  aws_subnet_ids = "${var.aws_subnet_ids}"
+  NAMESPACE      = "${var.NAMESPACE}"
 }
 
 module "batch_queue" {

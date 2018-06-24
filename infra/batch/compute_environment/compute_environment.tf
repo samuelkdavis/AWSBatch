@@ -1,5 +1,8 @@
 variable "NAMESPACE" {}
-variable "aws_subnet_id" {}
+
+variable "aws_subnet_ids" {
+  type = "list"
+}
 
 variable instance_type {
   default = "c4.large"
@@ -35,9 +38,7 @@ resource "aws_batch_compute_environment" "batch-compute" {
       "${aws_security_group.batch-compute-security-group.id}",
     ]
 
-    subnets = [
-      "${var.aws_subnet_id}",
-    ]
+    subnets = "${var.aws_subnet_ids}"
 
     type = "EC2"
   }

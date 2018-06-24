@@ -1,8 +1,26 @@
+console.log('batch job running ' + new Date())
+const aws = require('aws-sdk');
 
-for (let j = 0; j < process.argv.length; j++) {  
-    console.log(j + ' -> ' + (process.argv[j]));
+
+var s3FileKey = process.env.s3FileKey;
+var s3BucketName = process.env.s3BucketName;
+
+const s3 = new aws.S3();
+
+var getParams = {
+    Bucket: s3BucketName,
+    Key: s3FileKey
 }
 
-console.log(process.env.s3FileKey)
-console.log(process.env.s3BucketName)
-console.log('batch job running ' + new Date())
+s3.getObject(getParams, function(err, data) {
+    if (err){
+        console.log('error getting s3 object ' + err)
+        return err;
+    }
+  let objectData = data.Body.toString('utf-8');
+  console.log(objectData);
+});
+
+console.log('batch job finished')
+
+
